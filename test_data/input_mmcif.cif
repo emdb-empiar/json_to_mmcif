@@ -1,0 +1,9 @@
+data_dea57c9e-3b44-4250-8d95-750878c8ecb3
+
+
+_em_imaging.mode                   "BRIGHT FIELD"
+_em_imaging.illumination_mode      "FLOOD BEAM"
+_em_imaging.electron_source        "FIELD EMISSION GUN"
+#
+_em_image_recording.film_or_detector_model       "TFS FALCON 4i (4k x 4k)"
+##
