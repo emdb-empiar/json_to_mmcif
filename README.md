@@ -11,7 +11,7 @@ Key Features:
 Usage:
 To use the script, you need to specify whether you are converting a JSON file to a new mmCIF file or appending data to an existing mmCIF file with -f parameter stating either ‘json’ or ‘cif’ respectively. Need to mention the input JSON file path with -j parameter and -c parameter is used when appending or modifying the existing file stating the mmCIF file path. 
 Example command for converting JSON to mmCIF:
-python json_to_mmcif.py -f json -j SPA_data.json
+python json_to_mmcif.py -f json -j input_data.json
 
 Or example command for adding JSON to an existing mmCIF information:
-Python json_to_mmcif.py -f cif -j SPA_data.json -c input_cif.cif
+Python json_to_mmcif.py -f cif -j input_data.json -c input_cif.cif
