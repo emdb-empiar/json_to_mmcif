@@ -46,7 +46,7 @@ def mmcif_to_json(input_cif_file):
 def write_mmcif_file(data_list, input_json_file):
     """Writes CIF data to a new file."""
     written = False
-    mmcif_filename = input_json_file.split(".")[0] + '_conv.cif'
+    mmcif_filename = input_json_file.split(".")[0] + '.cif'
     with open(mmcif_filename, "w") as cfile:
         pdbx_writer = PdbxWriter(cfile)
         pdbx_writer.write(data_list)

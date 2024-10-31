@@ -1,9 +1,9 @@
 {
     "em_imaging": {
-        "microscope_model": "TITAN52335130",
+        "microscope_model": "TITAN",
         "date": "2024-06-07",
         "accelerating_voltage": "300000",
-        "nominal_magnification": 81000.0,
+        "nominal_magnification": "81000",
         "nominal_defocus_min": "?",
         "nominal_defocus_max": "?",
         "c2_aperture_diameter": "50",
@@ -12,6 +12,10 @@
         "electron_source": "FieldEmission",
         "tilt_angle_min": "?",
         "tilt_angle_max": "?"
+    },
+    "undefined_metadata": {
+        "microscope_serial": "52335130",
+        "objective_aperture": "100"
     },
     "em_software": {
         "name": "FEI tomography",

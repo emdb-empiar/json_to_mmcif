@@ -1,20 +1,23 @@
-data_test_data/Supervisor_20230516_142207_26_session2_dep
+data_test_data/SPA_data
 
-_em_imaging.microscope_model       TITAN52334150
-_em_imaging.date                   "2023-05-16 14:22:19"
+_em_imaging.microscope_model       TITAN
+_em_imaging.date                   "2023-09-19 14:03:40"
 _em_imaging.accelerating_voltage   300000
-_em_imaging.nominal_magnification  81000
-_em_imaging.nominal_defocus_min    -1.0
-_em_imaging.nominal_defocus_max    -3.0
+_em_imaging.nominal_magnification  165000
+_em_imaging.nominal_defocus_min    -0.5
+_em_imaging.nominal_defocus_max    -2.5
 _em_imaging.c2_aperture_diameter   50
 _em_imaging.mode                   '"BRIGHT FIELD"'
 _em_imaging.illumination_mode      '"FLOOD BEAM"'
 _em_imaging.electron_source        '"FIELD EMISSION GUN"'
-_em_imaging.tilt_angle_min         0.001
-_em_imaging.tilt_angle_max         1.00517
+_em_imaging.tilt_angle_min         -0.02922
+_em_imaging.tilt_angle_max         1.01023
+#
+_undefined_metadata.microscope_serial   52336320
+_undefined_metadata.objective_aperture  100
 #
 _em_software.name      EPU
-_em_software.version   3.0.0-446.0
+_em_software.version   3.0.0-873.0
 _em_software.category  "IMAGE ACQUISITION"
 #
 _em_support_film.material  Carbon
@@ -22,8 +25,8 @@ _em_support_film.topology  Holey
 #
 _em_image_recording.film_or_detector_model       '"TFS FALCON 4i (4k x 4k)"'
 _em_image_recording.avg_electron_dose_per_image  ?
-_em_image_recording.average_exposure_time        2.65
+_em_image_recording.average_exposure_time        0.75
 _em_image_recording.detector_mode                COUNTING
 #
-_em_imaging_optics.energyfilter_slit_width  20
+_em_imaging_optics.energyfilter_slit_width  10
 ##
