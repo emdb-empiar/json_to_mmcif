@@ -1,6 +1,6 @@
 {
     "em_imaging": {
-        "microscope_model": "TITAN",
+        "microscope_model": "TFS KRIOS",
         "date": "2024-06-07",
         "accelerating_voltage": "300000",
         "nominal_magnification": "81000",
@@ -14,7 +14,7 @@
         "tilt_angle_max": "?"
     },
     "undefined_metadata": {
-        "microscope_serial": "52335130",
+        "microscope_serial_number": "52335130",
         "objective_aperture": "100"
     },
     "em_software": {
