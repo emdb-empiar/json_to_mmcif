@@ -1,17 +1,39 @@
 # json_to_mmcif
-Converting JSON to mmCIF, as well as adding to and modifying an mmCIF file using a JSON file.
 
-Conversion to mmCIF metadata file:
-The standalone Python script (json_to_mmcif.py) provides two functionalities: it either converts a JSON file into the mmCIF format, or it appends data from a JSON file to an already existing mmCIF file. This flexibility allows for both the creation of new mmCIF files from JSON data and the extension or modification of existing mmCIF files by incorporating additional data.
+json_to_mmcif(file_format, json_path, cif_path=None)
 
-Key Features:
-1. JSON to mmCIF conversion: The script reads structured data from a JSON file and generates a new mmCIF file formatted according to the standard used in macromolecular data storage.
-2. Appending Data to an existing mmCIF file: If you already have an mmCIF file, the script allows you to append new data from a JSON file to this existing file, preserving the original data while augmenting it with new entries.
-   
-Usage:
-To use the script, you need to specify whether you are converting a JSON file to a new mmCIF file or appending data to an existing mmCIF file with -f parameter stating either ‘json’ or ‘cif’ respectively. Need to mention the input JSON file path with -j parameter and -c parameter is used when appending or modifying the existing file stating the mmCIF file path. 
-Example command for converting JSON to mmCIF:
+Convert or append/modify an mmCIF file using data from a JSON file.
+
+Parameters:
+
+   file_format : {'json', 'cif'}
+        Specify the operation mode. Choose 'json' to create a new mmCIF file from a JSON file. Choose 'cif' to append or modify an existing mmCIF file with data from a JSON file.
+        
+   json_path : str
+        The file path to the JSON file containing structured data for conversion or modification.
+        
+   cif_path : str, optional
+        The file path to an existing mmCIF file to which JSON data will be appended. Required only if 'file_format' is set to 'cif'.
+
+Output:
+ A new or modified mmCIF file (filename same as JSON) will be generated as a result of the specified operation.
+
+Description:
+
+The 'json_to_mmcif.py' script provides two primary functionalities:
+
+- JSON to mmCIF Conversion: Converts a JSON file into the macromolecular Crystallographic Information File (mmCIF) format, creating a new mmCIF file based on JSON data.
+  
+- Appending or modifying Data to an Existing mmCIF File: If you have an existing mmCIF file, you can append new data from a JSON file, thereby extending or modifying the values of items in the mmCIF file based on the JSON data.
+
+Usage Examples:
+
+To convert a JSON file to a new mmCIF file:
 python json_to_mmcif.py -f json -j input_data.json
 
-Or example command for adding JSON to an existing mmCIF information:
-Python json_to_mmcif.py -f cif -j input_data.json -c input_cif.cif
+To append/modify an existing mmCIF file by a JSON file:
+python json_to_mmcif.py -f cif -j input_data.json -c input_cif.cif
+
+
+
+
