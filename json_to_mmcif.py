@@ -4,7 +4,6 @@ from mmcif.api.DataCategory import DataCategory
 from mmcif.api.PdbxContainers import DataContainer
 from mmcif.io.PdbxWriter import PdbxWriter
 
-
 def parse_arguments():
     """Example usage (if no input cif file): python3.7 json_to_mmcif.py -f json -j test_data/TOMO_data.json
     or if there is an input cif file:
@@ -74,15 +73,32 @@ def add_category(container, category_id, items):
 
 
 def insert_data(container, category_id, data_list):
-    """Inserts data_list into the specified category_id within the container."""
-    cat_obj = container.getObj(category_id)
-    if cat_obj is None:
-        return
-    if all(isinstance(i, list) for i in data_list):
-        list_values = [list(t) for t in zip(*data_list)]
-        cat_obj.extend(list_values)
-    else:
-        cat_obj.append(data_list)
+    """ Insert or update data in the given category within the DataContainer."""
+    # Check if the category exists in the container
+    category = container.getObj(category_id)
+
+    if category is None:
+        category = DataCategory(category_id)
+        container.append(category)
+
+    for idx, value_list in enumerate(data_list):
+        if not isinstance(value_list, list):
+            value_list = [value_list]
+
+        # Get or generate attribute name
+        attr_name = (list(container.getObj(category_id).getAttributeList())[idx]
+                     if idx < len(container.getObj(category_id).getAttributeList())
+                     else f"attribute_{idx}")
+
+        if not category.hasAttribute(attr_name):
+            category.appendAttribute(attr_name)
+
+        # Ensure there is at least one row
+        if category.getRowCount() == 0:
+            category.append([None] * len(category.getAttributeList()))
+
+        # Update the value of the attribute
+        category.setValue(str(value_list[0]), attr_name, 0)
 
 
 def convert_input_file(input_json_file, input_cif_file, input_format):
@@ -106,6 +122,7 @@ def convert_input_file(input_json_file, input_cif_file, input_format):
 
     translate_json_to_cif(container_dict, input_json_file)
 
+    return container_dict
 
 def translate_json_to_cif(container_dict, input_json_file):
     """Translates input JSON data into a CIF file."""

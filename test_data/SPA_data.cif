@@ -1,8 +1,8 @@
 data_test_data/SPA_data
 
-_em_imaging.mode                   BrightField
+_em_imaging.mode                   "BRIGHT FIELD"
 _em_imaging.illumination_mode      ?
-_em_imaging.electron_source        FieldEmission
+_em_imaging.electron_source        "FIELD EMISSION GUN"
 _em_imaging.microscope_model       "TFS KRIOS"
 _em_imaging.date                   "2023-09-19 14:03:40"
 _em_imaging.accelerating_voltage   300000

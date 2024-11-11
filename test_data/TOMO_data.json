@@ -7,9 +7,9 @@
         "nominal_defocus_min": "?",
         "nominal_defocus_max": "?",
         "c2_aperture_diameter": "50",
-        "mode": "BrightField",
+        "mode": "BRIGHT FIELD",
         "illumination_mode": "PARALLEL",
-        "electron_source": "FieldEmission",
+        "electron_source": "FIELD EMISSION GUN",
         "tilt_angle_min": "?",
         "tilt_angle_max": "?"
     },
