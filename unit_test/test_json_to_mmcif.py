@@ -1,3 +1,13 @@
+"""
+test_json_to_mmcif.py
+
+Description: This script is a unit test for the json_to_mmcif.py script.
+
+"""
+__author__ = 'Amudha Kumari Duraisamy'
+__email__ = 'emdbhelp@ebi.ac.uk'
+__date__ = '2024-10-22'
+
 import unittest
 import os
 import tempfile

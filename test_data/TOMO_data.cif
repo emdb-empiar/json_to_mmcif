@@ -18,7 +18,7 @@ _undefined_metadata.objective_aperture        100
 #
 _em_software.name      "FEI tomography"
 _em_software.version   5.17.0.6930
-_em_software.category  "IMAGE ACQUISITION"
+_em_software.category  "IMAGE PROCESSING"
 #
 _em_support_film.material  ?
 _em_support_film.topology  ?
@@ -26,7 +26,7 @@ _em_support_film.topology  ?
 _em_image_recording.film_or_detector_model       "TFS FALCON 4i (4k x 4k)"
 _em_image_recording.avg_electron_dose_per_image  ?
 _em_image_recording.average_exposure_time        1
-_em_image_recording.detector_mode                SUPER-RESOULTION
+_em_image_recording.detector_mode                SUPER-RESOLUTION
 #
 _em_imaging_optics.energyfilter_slit_width  ?
 #

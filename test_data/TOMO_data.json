@@ -18,9 +18,9 @@
         "objective_aperture": "100"
     },
     "em_software": {
-        "name": "FEI tomography",
-        "version": "5.17.0.6930",
-        "category": "IMAGE ACQUISITION"
+        "name": ["FEI tomography", "RECONSTRUCTION"],
+        "version": ["5.17.0.6930", "4.11"],
+        "category": ["IMAGE PROCESSING", "IMOD"]
     },
     "em_support_film": {
         "material": "?",
@@ -30,7 +30,7 @@
         "film_or_detector_model": "TFS FALCON 4i (4k x 4k)",
         "avg_electron_dose_per_image": "?",
         "average_exposure_time": "1",
-        "detector_mode": "SUPER-RESOULTION"
+        "detector_mode": "SUPER-RESOLUTION"
     },
     "em_imaging_optics": {
         "energyfilter_slit_width": "?"

@@ -1,0 +1,84 @@
+Note: Ddl has invalid regex for sequence_dep:
+      [a-zA-Z0-9\t \r\n\v\f\(\)]+$
+      The expression contained an invalid escaped character, or a trailing escape.
+Reading test_data/TOMO_data.cif...
+test_data/TOMO_data.cif:11 [test_data/TOMO_data] PARALLEL is not one of the allowed values:
+	FLOOD BEAM
+	SPOT SCAN
+	OTHER
+Note: [test_data/TOMO_data] unknown tag _undefined_metadata.microscope_serial_number
+Note: [test_data/TOMO_data] unknown tag _undefined_metadata.objective_aperture
+test_data/TOMO_data.cif:21 [test_data/TOMO_data] "IMAGE PROCESSING" is not one of the allowed values:
+	IMAGE ACQUISITION
+	PARTICLE SELECTION
+	VOLUME SELECTION
+	CLASSIFICATION
+	MASKING
+	RECONSTRUCTION
+	INITIAL EULER ASSIGNMENT
+	FINAL EULER ASSIGNMENT
+	CTF CORRECTION
+	LAYERLINE INDEXING
+	DIFFRACTION INDEXING
+	MODEL FITTING
+	MODEL REFINEMENT
+	SERIES ALIGNMENT
+	MOLECULAR REPLACEMENT
+	LATTICE DISTORTION CORRECTION
+	SYMMETRY DETERMINATION
+	CRYSTALLOGRAPHY MERGING
+	EWALD SPHERE CORRECTION
+	OTHER
+[test_data/TOMO_data] missing category key: _em_image_recording.id
+[test_data/TOMO_data] missing category key: _em_image_recording.imaging_id
+[test_data/TOMO_data] missing mandatory tag: _em_image_recording.id
+[test_data/TOMO_data] missing mandatory tag: _em_image_recording.imaging_id
+[test_data/TOMO_data] missing category key: _em_imaging.entry_id
+[test_data/TOMO_data] missing category key: _em_imaging.id
+[test_data/TOMO_data] missing mandatory tag: _em_imaging.entry_id
+[test_data/TOMO_data] missing mandatory tag: _em_imaging.id
+[test_data/TOMO_data] missing mandatory tag: _em_imaging.specimen_id
+[test_data/TOMO_data] missing category key: _em_imaging_optics.id
+[test_data/TOMO_data] missing category key: _em_imaging_optics.imaging_id
+[test_data/TOMO_data] missing mandatory tag: _em_imaging_optics.id
+[test_data/TOMO_data] missing mandatory tag: _em_imaging_optics.imaging_id
+[test_data/TOMO_data] missing category key: _em_map.id
+[test_data/TOMO_data] missing category key: _em_map.entry_id
+[test_data/TOMO_data] missing mandatory tag: _em_map.axis_order_fast
+[test_data/TOMO_data] missing mandatory tag: _em_map.axis_order_medium
+[test_data/TOMO_data] missing mandatory tag: _em_map.axis_order_slow
+[test_data/TOMO_data] missing mandatory tag: _em_map.cell_a
+[test_data/TOMO_data] missing mandatory tag: _em_map.cell_alpha
+[test_data/TOMO_data] missing mandatory tag: _em_map.cell_b
+[test_data/TOMO_data] missing mandatory tag: _em_map.cell_beta
+[test_data/TOMO_data] missing mandatory tag: _em_map.cell_c
+[test_data/TOMO_data] missing mandatory tag: _em_map.cell_gamma
+[test_data/TOMO_data] missing mandatory tag: _em_map.data_type
+[test_data/TOMO_data] missing mandatory tag: _em_map.dimensions_col
+[test_data/TOMO_data] missing mandatory tag: _em_map.dimensions_row
+[test_data/TOMO_data] missing mandatory tag: _em_map.dimensions_sec
+[test_data/TOMO_data] missing mandatory tag: _em_map.endian_type
+[test_data/TOMO_data] missing mandatory tag: _em_map.entry_id
+[test_data/TOMO_data] missing mandatory tag: _em_map.format
+[test_data/TOMO_data] missing mandatory tag: _em_map.id
+[test_data/TOMO_data] missing mandatory tag: _em_map.origin_col
+[test_data/TOMO_data] missing mandatory tag: _em_map.origin_row
+[test_data/TOMO_data] missing mandatory tag: _em_map.origin_sec
+[test_data/TOMO_data] missing mandatory tag: _em_map.partition
+[test_data/TOMO_data] missing mandatory tag: _em_map.size_kb
+[test_data/TOMO_data] missing mandatory tag: _em_map.spacing_x
+[test_data/TOMO_data] missing mandatory tag: _em_map.spacing_y
+[test_data/TOMO_data] missing mandatory tag: _em_map.spacing_z
+[test_data/TOMO_data] missing mandatory tag: _em_map.symmetry_space_group
+[test_data/TOMO_data] missing mandatory tag: _em_map.type
+[test_data/TOMO_data] missing category key: _em_software.id
+[test_data/TOMO_data] missing mandatory tag: _em_software.id
+[test_data/TOMO_data] missing category key: _em_support_film.id
+[test_data/TOMO_data] missing mandatory tag: _em_support_film.id
+[test_data/TOMO_data] missing mandatory tag: _em_support_film.sample_support_id
+[test_data/TOMO_data] missing category key: _em_tomography.id
+[test_data/TOMO_data] missing category key: _em_tomography.imaging_id
+[test_data/TOMO_data] missing mandatory tag: _em_tomography.id
+[test_data/TOMO_data] missing mandatory tag: _em_tomography.imaging_id
+[test_data/TOMO_data] category not in the dictionary: undefined_metadata
+FAILED

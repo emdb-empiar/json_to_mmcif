@@ -1,18 +1,36 @@
+"""
+json_to_mmcif.py
+
+Description: This script convert or append/modify an mmCIF file using data from a given JSON file.
+Can validate mmCIF files using the latest mmCIF dictionary, either after conversion or as a standalone
+validation tool for any input mmCIF file.
+
+"""
+__author__ = 'Amudha Kumari Duraisamy'
+__email__ = 'emdbhelp@ebi.ac.uk'
+__date__ = '2024-10-15'
+
 import json
 import argparse
+import urllib.request
 from mmcif.api.DataCategory import DataCategory
 from mmcif.api.PdbxContainers import DataContainer
 from mmcif.io.PdbxWriter import PdbxWriter
+from mmcif_validator import validate_and_print
 
 def parse_arguments():
-    """Example usage (if no input cif file): python3.7 json_to_mmcif.py -f json -j test_data/TOMO_data.json
+    """Example usage (if no input cif file): python json_to_mmcif.py -f json -j test_data/TOMO_data.json -d no -v all
     or if there is an input cif file:
-    python3.7 json_to_mmcif.py -f cif -j test_data/SPA_data.json -c test_data/input_mmcif.cif """
+    python json_to_mmcif.py -f cif -j test_data/SPA_data.json -c test_data/input_mmcif.cif -v only"""
     parser = argparse.ArgumentParser(description="JSON to mmCIF")
     parser.add_argument("-j", "--input_json_file", required=True, help="input JSON file to convert or add to mmCIF")
     parser.add_argument("-c", "--input_cif_file", help="input mmCIF file to add the JSON information to")
     parser.add_argument("-f", "--input_format", choices=["json", "cif"], required=True,
                         help="json for converting directly from JSON, cif for adding the JSON file to the existing CIF file")
+    parser.add_argument("-d", "--download_dict", choices=["yes", "no"], default="yes",
+                        help="Download the latest mmCIF dictionary for validation (default: yes)")
+    parser.add_argument("-v", "--validate", default="all", choices=["all", "only"],
+                        help="Convert and validate (with option all) or Only validate the mmCIF file (with option only)(default: all)")
     return parser.parse_args()
 
 
@@ -136,11 +154,25 @@ def translate_json_to_cif(container_dict, input_json_file):
         insert_data(container, category_name, cif_values_list)
     return write_mmcif_file(cif_data_list, input_json_file)
 
+def download_and_validate(input_json_file, input_cif_file, download_dict, validate):
+    mmcif_filename = input_json_file.split(".")[0] + '.cif'
+    val_filename = input_json_file.split(".")[0] + '_val.txt'
+    dic_file = "mmcif_tools/mmcif_pdbx_v50.dic"
+    if download_dict == "yes":
+        urllib.request.urlretrieve("https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_pdbx_v50.dic", dic_file)
+    if validate == "all":
+        validate_and_print(mmcif_filename, dic_file, val_filename)
+    elif validate == "only":
+        if not input_cif_file:
+            print("Error: Please provide the input mmCIF file with -c argument.")
+        validate_and_print(input_cif_file, dic_file, val_filename)
+    return True
+
 
 def run():
     args = parse_arguments()
     convert_input_file(args.input_json_file, args.input_cif_file, args.input_format)
-
+    download_and_validate(args.input_json_file, args.input_cif_file, args.download_dict, args.validate)
 
 if __name__ == "__main__":
     run()
