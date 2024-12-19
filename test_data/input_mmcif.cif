@@ -1,9 +1,26 @@
-data_dea57c9e-3b44-4250-8d95-750878c8ecb3
+data_Supervisor_20230516_142207_26_session2
 
-
+_em_imaging.microscope_model       "TFS KRIOS"
+_em_imaging.date                   2023-05-16
+_em_imaging.accelerating_voltage   300
+_em_imaging.nominal_magnification  81000
+_em_imaging.nominal_defocus_min    1000
+_em_imaging.nominal_defocus_max    3000
+_em_imaging.c2_aperture_diameter   50
 _em_imaging.mode                   "BRIGHT FIELD"
-_em_imaging.illumination_mode      "FLOOD BEAM"
+_em_imaging.illumination_mode      ?
 _em_imaging.electron_source        "FIELD EMISSION GUN"
+_em_imaging.tilt_angle_min         0.001
+_em_imaging.tilt_angle_max         1.00517
 #
-_em_image_recording.film_or_detector_model       "TFS FALCON 4i (4k x 4k)"
+_em_software.name      EPU
+_em_software.version   3.0.0-446.0
+_em_software.category  "IMAGE ACQUISITION"
+#
+_em_support_film.material  CARBON
+_em_support_film.topology  HOLEY
+#
+_em_image_recording.film_or_detector_model       "BioQuantum K3"
+_em_image_recording.avg_electron_dose_per_image  ?
+_em_image_recording.average_exposure_time        2.65
 ##

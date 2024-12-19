@@ -69,7 +69,7 @@ class TestJsonToMmcif(unittest.TestCase):
         """Test mmcif_to_json function with a valid mmCIF file."""
         data = mmcif_to_json(self.test_cif)
         self.assertIn("em_image_recording", data)
-        self.assertEqual(data["em_image_recording"]["film_or_detector_model"], '"TFS FALCON 4i (4k x 4k)"')
+        self.assertEqual(data["em_image_recording"]["film_or_detector_model"], "TFS FALCON 4i (4k x 4k)")
 
     def test_write_mmcif_file(self):
         """Test write_mmcif_file function for file output."""
@@ -98,7 +98,6 @@ class TestJsonToMmcif(unittest.TestCase):
         add_category(container, 'em_imaging', ['microscope_model', 'mode'])
         category = container.getObj('em_imaging')
         self.assertIsInstance(category, DataCategory)
-
 
     def test_insert_data(self):
         """Test insert_data function for inserting and updating data within a category."""

@@ -45,6 +45,7 @@ def json_to_dict(input_json_file):
     except json.JSONDecodeError:
         print(f"Error: File '{input_json_file}' is not a valid JSON file.")
         return {}
+    print("JSON DATA", data)
     return data
 
 
@@ -58,6 +59,8 @@ def mmcif_to_json(input_cif_file):
                 continue
             if line.startswith('_'):
                 key, value = line.split(maxsplit=1)
+                if isinstance(value, str):
+                    value = value.strip('"')
                 if '.' in key:
                     category, sub_key = key[1:].split('.', 1)
                     if category not in json_data_dict:
