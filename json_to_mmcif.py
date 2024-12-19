@@ -45,7 +45,6 @@ def json_to_dict(input_json_file):
     except json.JSONDecodeError:
         print(f"Error: File '{input_json_file}' is not a valid JSON file.")
         return {}
-    print("JSON DATA", data)
     return data
 
 
@@ -95,32 +94,15 @@ def add_category(container, category_id, items):
 
 def insert_data(container, category_id, data_list):
     """ Insert or update data in the given category within the DataContainer."""
-    # Check if the category exists in the container
-    category = container.getObj(category_id)
+    cat_obj = container.getObj(category_id)
+    if cat_obj is None:
+        return
 
-    if category is None:
-        category = DataCategory(category_id)
-        container.append(category)
-
-    for idx, value_list in enumerate(data_list):
-        if not isinstance(value_list, list):
-            value_list = [value_list]
-
-        # Get or generate attribute name
-        attr_name = (list(container.getObj(category_id).getAttributeList())[idx]
-                     if idx < len(container.getObj(category_id).getAttributeList())
-                     else f"attribute_{idx}")
-
-        if not category.hasAttribute(attr_name):
-            category.appendAttribute(attr_name)
-
-        # Ensure there is at least one row
-        if category.getRowCount() == 0:
-            category.append([None] * len(category.getAttributeList()))
-
-        # Update the value of the attribute
-        category.setValue(str(value_list[0]), attr_name, 0)
-
+    if all(isinstance(i, list) for i in data_list):
+        list_values = [list(t) for t in zip(*data_list)]
+        cat_obj.extend(list_values)
+    else:
+        cat_obj.append(data_list)
 
 def convert_input_file(input_json_file, input_cif_file, input_format):
     container_dict = {}

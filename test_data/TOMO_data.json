@@ -18,9 +18,9 @@
         "objective_aperture": "100"
     },
     "em_software": {
-        "name": ["FEI tomography", "RECONSTRUCTION"],
+        "name": ["FEI tomography", "IMOD"],
         "version": ["5.17.0.6930", "4.11"],
-        "category": ["IMAGE PROCESSING", "IMOD"]
+        "category": ["IMAGE ACQUISITION", "RECONSTRUCTION"]
     },
     "em_support_film": {
         "material": "?",

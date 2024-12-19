@@ -16,9 +16,12 @@ _em_imaging.tilt_angle_max         ?
 _undefined_metadata.microscope_serial_number  52335130
 _undefined_metadata.objective_aperture        100
 #
-_em_software.name      "FEI tomography"
-_em_software.version   5.17.0.6930
-_em_software.category  "IMAGE PROCESSING"
+loop_
+_em_software.name
+_em_software.version
+_em_software.category
+"FEI tomography"  5.17.0.6930  "IMAGE ACQUISITION"  
+IMOD              4.11         RECONSTRUCTION  
 #
 _em_support_film.material  ?
 _em_support_film.topology  ?

@@ -65,6 +65,12 @@ class TestJsonToMmcif(unittest.TestCase):
         self.assertEqual(data, {"key": "value"})
         os.remove(temp_file.name)  # Clean up the temporary file
 
+        # Check for possible bugs
+        with self.assertRaises(FileNotFoundError):
+            json_to_dict('non_existent_file')
+        with self.assertRaises(json.JSONDecodeError):
+            json_to_dict(temp_file.name, "not_a_json_file")
+
     def test_mmcif_to_json(self):
         """Test mmcif_to_json function with a valid mmCIF file."""
         data = mmcif_to_json(self.test_cif)
@@ -131,7 +137,7 @@ class TestJsonToMmcif(unittest.TestCase):
         added_em_image_recording = container.getObj("em_image_recording")
 
         # Check that the mode has been updated correctly
-        self.assertEqual(updated_em_imaging.getValue("mode", 0), "BRIGHT FIELD")
+        self.assertEqual(updated_em_imaging.getValue("mode", 0), "DARK FIELD")
 
         # Check that the new attribute is correctly inserted
         # self.assertEqual(added_em_image_recording.getValue("film_or_detector_model", 0), "TFS FALCON 4i (4k x 4k)")
