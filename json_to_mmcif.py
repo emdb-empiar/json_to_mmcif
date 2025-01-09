@@ -35,18 +35,17 @@ def parse_arguments():
 
 
 def json_to_dict(input_json_file):
-    """Convert a JSON file to a Python dictionary"""
+    """Convert a JSON file to a Python dictionary."""
     try:
         with open(input_json_file, 'r') as file:
             data = json.load(file)
-    except FileNotFoundError:
-        print(f"Error: File '{input_json_file}' not found.")
-        return {}
-    except json.JSONDecodeError:
-        print(f"Error: File '{input_json_file}' is not a valid JSON file.")
-        return {}
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"File '{input_json_file}' not found.") from e
+    except json.JSONDecodeError as e:
+        raise json.JSONDecodeError(
+            f"File '{input_json_file}' is not a valid JSON file."
+        ) from e
     return data
-
 
 def mmcif_to_json(input_cif_file):
     """Converts an mmCIF file to a JSON format."""
@@ -73,7 +72,11 @@ def write_mmcif_file(data_list, input_json_file):
     mmcif_filename = input_json_file.split(".")[0] + '.cif'
     with open(mmcif_filename, "w") as cfile:
         pdbx_writer = PdbxWriter(cfile)
-        pdbx_writer.write(data_list)
+        try:
+            pdbx_writer.write(data_list)
+        except IndexError as e:
+            print(f"Error: {e}")
+            return False
     return True
 
 
@@ -90,6 +93,7 @@ def add_category(container, category_id, items):
     for item in items:
         category.appendAttribute(item)
     container.append(category)
+    return category
 
 
 def insert_data(container, category_id, data_list):
@@ -103,6 +107,8 @@ def insert_data(container, category_id, data_list):
         cat_obj.extend(list_values)
     else:
         cat_obj.append(data_list)
+    return cat_obj
+
 
 def convert_input_file(input_json_file, input_cif_file, input_format):
     container_dict = {}
@@ -132,12 +138,24 @@ def translate_json_to_cif(container_dict, input_json_file):
     cif_data_list = []
     container_id = input_json_file.split(".")[0]
     container = add_container(cif_data_list, container_id)
+
     for category_name, category_data in container_dict.items():
         category_list = list(category_data.keys())
         cif_values_list = list(category_data.values())
+
+        # Ensure consistent data format
+        if len(category_list) != len(cif_values_list):
+            print(f"Error: Mismatch in attributes and values for category {category_name}")
+            return False
+
         add_category(container, category_name, category_list)
         insert_data(container, category_name, cif_values_list)
-    return write_mmcif_file(cif_data_list, input_json_file)
+
+    # Write the CIF file and check result
+    result = write_mmcif_file(cif_data_list, input_json_file)
+    if not result:
+        print("Error: Failed to write mmCIF file.")
+    return result
 
 def download_and_validate(input_json_file, input_cif_file, download_dict, validate):
     mmcif_filename = input_json_file.split(".")[0] + '.cif'
