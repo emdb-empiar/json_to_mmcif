@@ -74,9 +74,6 @@ class TestMmcifValidator(unittest.TestCase):
         mock_urlretrieve.return_value = ('', '')
         # Simulate missing dictionary file
         dic_file = os.path.join(self.mmcif_tools_path, 'mmcif_pdbx_v50.dic')
-        if os.path.exists(dic_file):
-            os.remove(dic_file)
-
         result = mmcif_validation(self.cif_file, 'no', self.output_file)
         self.assertFalse(result[0])
         self.assertIn("Dictionary file", result[1])
