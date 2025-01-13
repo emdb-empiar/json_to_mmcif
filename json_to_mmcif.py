@@ -41,10 +41,8 @@ def json_to_dict(input_json_file):
             data = json.load(file)
     except FileNotFoundError as e:
         raise FileNotFoundError(f"File '{input_json_file}' not found.") from e
-    except json.JSONDecodeError as e:
-        raise json.JSONDecodeError(
-            f"File '{input_json_file}' is not a valid JSON file."
-        ) from e
+    except TypeError as e:
+        raise TypeError(f"File '{input_json_file}' is not a valid JSON file.") from e
     return data
 
 def mmcif_to_json(input_cif_file):
@@ -158,6 +156,7 @@ def translate_json_to_cif(container_dict, input_json_file):
     return result
 
 def download_and_validate(input_json_file, input_cif_file, download_dict, validate):
+    """Download the latest mmcif dictionary and validate an mmCIF file."""
     mmcif_filename = input_json_file.split(".")[0] + '.cif'
     val_filename = input_json_file.split(".")[0] + '_val.txt'
     dic_file = "mmcif_tools/mmcif_pdbx_v50.dic"
