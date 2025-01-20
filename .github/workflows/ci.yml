@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - main
-    types: [closed]
+    # types: [closed]
 
 jobs:
   test:
@@ -20,10 +20,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
 
