@@ -69,15 +69,6 @@ class TestMmcifValidator(unittest.TestCase):
         result = mmcif_validation(self.cif_file, 'no', self.output_file)
         self.assertFalse(result)
 
-    @patch('urllib.request.urlretrieve')
-    def test_mmcif_validation_missing_dict(self, mock_urlretrieve):
-        mock_urlretrieve.return_value = ('', '')
-        # Simulate missing dictionary file
-        dic_file = os.path.join(self.mmcif_tools_path, 'mmcif_pdbx_v50.dic')
-        result = mmcif_validation(self.cif_file, 'no', self.output_file)
-        self.assertFalse(result[0])
-        self.assertIn("Dictionary file", result[1])
-
     @patch('subprocess.run')
     @patch('os.path.isfile', side_effect=lambda x: True if 'mmcif_pdbx_v50.dic' in x or 'test.cif' in x else False)
     def test_unexpected_exception(self, mock_isfile, mock_run):

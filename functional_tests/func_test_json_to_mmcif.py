@@ -13,6 +13,7 @@ import os
 import sys
 import tempfile
 import json
+import shutil
 from unittest.mock import patch
 
 sys.path.insert(1, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -46,7 +47,7 @@ class TestJsonToMmcif(unittest.TestCase):
             os.remove(self.mmcif_file)
         if os.path.exists(self.cif_file):
             os.remove(self.cif_file)
-        os.rmdir(self.temp_dir)
+        shutil.rmtree(self.temp_dir)
 
     @patch('urllib.request.urlretrieve')
     def test_json_conversion(self, mock_urlretrieve):
