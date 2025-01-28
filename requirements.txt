@@ -2,7 +2,7 @@ gemmi==0.6.7
 mmcif==0.88.0
 mmcif-pdbx==2.0.1
 mmcif.utils==0.30.1
-requests==2.31.0
+requests==2.32.2
 typing-extensions==4.7.1
 wwpdb.io==0.33.4
 wwpdb.utils.config==0.45
