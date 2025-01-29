@@ -2,12 +2,10 @@ Note: Ddl has invalid regex for sequence_dep:
       [a-zA-Z0-9\t \r\n\v\f\(\)]+$
       The expression contained an invalid escaped character, or a trailing escape.
 Reading test_data/TOMO_data.cif...
-test_data/TOMO_data.cif:11 [test_data/TOMO_data] PARALLEL is not one of the allowed values:
+test_data/TOMO_data.cif:13 [test_data/TOMO_data] PARALLEL is not one of the allowed values:
 	FLOOD BEAM
 	SPOT SCAN
 	OTHER
-Note: [test_data/TOMO_data] unknown tag _undefined_metadata.microscope_serial_number
-Note: [test_data/TOMO_data] unknown tag _undefined_metadata.objective_aperture
 [test_data/TOMO_data] missing category key: _em_image_recording.id
 [test_data/TOMO_data] missing category key: _em_image_recording.imaging_id
 [test_data/TOMO_data] missing mandatory tag: _em_image_recording.id
@@ -59,5 +57,4 @@ Note: [test_data/TOMO_data] unknown tag _undefined_metadata.objective_aperture
 [test_data/TOMO_data] missing category key: _em_tomography.imaging_id
 [test_data/TOMO_data] missing mandatory tag: _em_tomography.id
 [test_data/TOMO_data] missing mandatory tag: _em_tomography.imaging_id
-[test_data/TOMO_data] category not in the dictionary: undefined_metadata
 FAILED

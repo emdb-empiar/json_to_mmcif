@@ -1,20 +1,19 @@
 data_test_data/TOMO_data
 
-_em_imaging.microscope_model       "TFS KRIOS"
-_em_imaging.date                   2024-06-07
-_em_imaging.accelerating_voltage   300000
-_em_imaging.nominal_magnification  81000
-_em_imaging.nominal_defocus_min    ?
-_em_imaging.nominal_defocus_max    ?
-_em_imaging.c2_aperture_diameter   50
-_em_imaging.mode                   "BRIGHT FIELD"
-_em_imaging.illumination_mode      PARALLEL
-_em_imaging.electron_source        "FIELD EMISSION GUN"
-_em_imaging.tilt_angle_min         ?
-_em_imaging.tilt_angle_max         ?
-#
-_undefined_metadata.microscope_serial_number  52335130
-_undefined_metadata.objective_aperture        100
+_em_imaging.microscope_model          "TFS KRIOS"
+_em_imaging.microscope_serial_number  52335130
+_em_imaging.objective_aperture        100
+_em_imaging.date                      2024-06-07
+_em_imaging.accelerating_voltage      300000
+_em_imaging.nominal_magnification     81000
+_em_imaging.nominal_defocus_min       ?
+_em_imaging.nominal_defocus_max       ?
+_em_imaging.c2_aperture_diameter      50
+_em_imaging.mode                      "BRIGHT FIELD"
+_em_imaging.illumination_mode         PARALLEL
+_em_imaging.electron_source           "FIELD EMISSION GUN"
+_em_imaging.tilt_angle_min            ?
+_em_imaging.tilt_angle_max            ?
 #
 loop_
 _em_software.name
