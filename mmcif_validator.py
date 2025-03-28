@@ -1,112 +1,61 @@
-"""
-mmcif_validator.py
-
-Description: This script can validate an mmCIF file using the latest mmCIF dictionary.
-
-"""
-__author__ = 'Amudha Kumari Duraisamy'
-__email__ = 'emdbhelp@ebi.ac.uk'
-__date__ = '2024-11-20'
-
+#!/usr/bin/env python3
 import os
+import sys
 import argparse
 import urllib.request
-import gemmi
+from gemmi import cif
 
-def parse_arguments():
-    """
-    Parses command-line arguments for mmCIF file validation.
-
-    Example usage:
-        python mmcif_validator.py -c test_data/TOMO_data.cif -d no
-
-    Requirements:
-        - Gemmi: A Python package for working with mmCIF files.
-        To install:
-            pip install gemmi
-
-    Returns:
-        argparse.Namespace: Parsed arguments with input CIF file, dictionary file, and output file paths.
-    """
-    parser = argparse.ArgumentParser(description="Validate a mmCIF file against a mmCIF dictionary.")
-    parser.add_argument("-c", "--input_cif_file", required=True, help="Path to the input mmCIF file to validate.")
-    parser.add_argument("-d", "--download_dict", choices=["yes", "no"], default="yes",
-                        help="Download the latest mmCIF dictionary for validation (default: yes)")
-    return parser.parse_args()
-
-def mmcif_validation(cif_file, download_dict, output_file):
-    """
-    Validates an mmCIF file using the Gemmi Python API and saves the output to a file.
-
-    Parameters:
-        cif_file (str): Path to the mmCIF file.
-        download_dict (str): Whether to download the dictionary file.
-        output_file (str): Path to save the validation output.
-
-    Returns:
-        tuple: (bool, str)
-            - bool: True if validation succeeded, False otherwise.
-            - str: Message detailing validation results or errors.
-    """
-    dic_dir = "mmcif_tools"
-    os.makedirs(dic_dir, exist_ok=True)
-    dic_file = os.path.join(dic_dir, "mmcif_pdbx_v50.dic")
-
-    if download_dict == "yes":
-        urllib.request.urlretrieve("https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_pdbx_v50.dic", dic_file)
-
-    try:
-        if not os.path.isfile(cif_file):
-            return False, f"Error: Input CIF file '{cif_file}' does not exist."
-        if not os.path.isfile(dic_file):
-            return False, f"Error: Dictionary file '{dic_file}' does not exist."
-
-        doc = gemmi.cif.read_file(cif_file)
-        block = doc.sole_block()
-
-        d = gemmi.cif.Dic()
-        d.read_file(dic_file)
-
-        validator = gemmi.cif.Validator(d)
-        issues = validator.validate_block(block)
-
-        if not issues:
-            success_msg = f"Validation succeeded. No issues found. Results saved to {output_file}"
-            with open(output_file, "w") as f:
-                f.write(success_msg + "\n")
-            print(success_msg)
-            return True, success_msg
-        else:
-            with open(output_file, "w") as f:
-                for issue in issues:
-                    f.write(str(issue) + '\n')
-            error_msg = f"Validation found issues. See {output_file} for details."
-            print(error_msg)
-            return False, error_msg
-
-    except Exception as e:
-        return False, f"An unexpected error occurred: {str(e)}"
-
-def validate_and_print(input_cif_file, download_dict, output_val_file):
-    """
-    A callable function for validation with direct input of arguments.
-
-    Parameters:
-        input_cif_file (str): Path to the input mmCIF file.
-        cif_dict (str): Path to the mmCIF dictionary file.
-        output_val_file (str): Path to save the validation output.
-    """
-    success, message = mmcif_validation(input_cif_file, download_dict, output_val_file)
-    if not success:
-        print(message)
+# URL and filename for the latest PDBx/mmCIF dictionary (v5.0 as of 2025)
+DICT_URL = "https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_pdbx_v50.dic"
+DICT_FILE = "mmcif_pdbx_v50.dic"
 
 def main():
-    """
-    Parses arguments, performs validation, and outputs results.
-    """
-    args = parse_arguments()
-    output_val_file = args.input_cif_file.split(".")[0] + '_val.txt'
-    validate_and_print(args.input_cif_file, args.download_dict, output_val_file)
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description="Validate an mmCIF file using Gemmi and the PDBx/mmCIF dictionary.")
+    parser.add_argument("-c", "--cif", dest="cif_path", required=True,
+                        help="Path to the input mmCIF file to validate")
+    args = parser.parse_args()
+    cif_path = args.cif_path
+
+    # Ensure the input file exists
+    if not os.path.isfile(cif_path):
+        print(f"Error: file '{cif_path}' not found.")
+        sys.exit(1)
+
+    # Download the mmCIF dictionary if not already present
+    if not os.path.isfile(DICT_FILE):
+        try:
+            print(f"Downloading mmCIF dictionary from {DICT_URL}...")
+            urllib.request.urlretrieve(DICT_URL, DICT_FILE)
+        except Exception as err:
+            print(f"Error: failed to download dictionary ({err}).")
+            sys.exit(1)
+
+    # Load the dictionary and the mmCIF data file using Gemmi
+    try:
+        dict_doc = cif.read(DICT_FILE)       # Parse the dictionary CIF file into a Document
+    except Exception as err:
+        print(f"Error: failed to read dictionary file ({err}).")
+        sys.exit(1)
+    try:
+        data_doc = cif.read(cif_path)        # Parse the input mmCIF file into a Document
+    except Exception as err:
+        print(f"Error: failed to read mmCIF file ({err}).")
+        sys.exit(1)
+
+    # Set up the Gemmi Ddl validator with output logger to stdout
+    validator = cif.Ddl(logger=sys.stdout)
+    validator.read_ddl(dict_doc)
+
+    # Validate the mmCIF Document against the dictionary
+    is_valid = validator.validate_cif(data_doc)
+
+    # Print summary result
+    if is_valid:
+        print("Validation succeeded.")
+    else:
+        print("Validation failed.")
+        # Detailed errors have already been printed to stdout by Gemmi's logger
 
 if __name__ == "__main__":
     main()
