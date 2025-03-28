@@ -9,9 +9,9 @@ __email__ = 'emdbhelp@ebi.ac.uk'
 __date__ = '2024-11-20'
 
 import os
-import subprocess
 import argparse
 import urllib.request
+import gemmi
 
 def parse_arguments():
     """
@@ -36,11 +36,11 @@ def parse_arguments():
 
 def mmcif_validation(cif_file, download_dict, output_file):
     """
-    Validates an mmCIF file using the Gemmi validate command and saves the output to a file.
+    Validates an mmCIF file using the Gemmi Python API and saves the output to a file.
 
     Parameters:
         cif_file (str): Path to the mmCIF file.
-        dic_file (str): Path to the dictionary file for validation.
+        download_dict (str): Whether to download the dictionary file.
         output_file (str): Path to save the validation output.
 
     Returns:
@@ -48,40 +48,46 @@ def mmcif_validation(cif_file, download_dict, output_file):
             - bool: True if validation succeeded, False otherwise.
             - str: Message detailing validation results or errors.
     """
-    dic_file = "mmcif_tools/mmcif_pdbx_v50.dic"
+    dic_dir = "mmcif_tools"
+    os.makedirs(dic_dir, exist_ok=True)
+    dic_file = os.path.join(dic_dir, "mmcif_pdbx_v50.dic")
+
     if download_dict == "yes":
         urllib.request.urlretrieve("https://mmcif.wwpdb.org/dictionaries/ascii/mmcif_pdbx_v50.dic", dic_file)
+
     try:
-        # Ensure input files exist
         if not os.path.isfile(cif_file):
             return False, f"Error: Input CIF file '{cif_file}' does not exist."
         if not os.path.isfile(dic_file):
-            return False, f"Error: Dictionary file '{dic_file}' does not exist. Download it using the option -d yes"
+            return False, f"Error: Dictionary file '{dic_file}' does not exist."
 
-        # Construct the Gemmi command
-        command = [
-            "gemmi", "validate", "-v", cif_file, "-d", dic_file
-        ]
+        doc = gemmi.cif.read_file(cif_file)
+        block = doc.sole_block()
 
-        # Execute the command and redirect output to a file
-        with open(output_file, "w") as outfile:
-            result = subprocess.run(command, stdout=outfile, stderr=subprocess.PIPE, text=True, env=os.environ.copy())
+        d = gemmi.cif.Dic()
+        d.read_file(dic_file)
 
-        # Check for errors in stderr or non-zero exit status
-        if result.returncode != 0:
-            print( f"Validation failed with error and output saved to {output_file}")
-            return False
-        if result.stderr.strip():
-            print(f"Validation encountered issues: {result.stderr.strip()}")
-            return False
+        validator = gemmi.cif.Validator(d)
+        issues = validator.validate_block(block)
 
-        print(f"Validation succeeded. Results saved to {output_file}")
-        return True
+        if not issues:
+            success_msg = f"Validation succeeded. No issues found. Results saved to {output_file}"
+            with open(output_file, "w") as f:
+                f.write(success_msg + "\n")
+            print(success_msg)
+            return True, success_msg
+        else:
+            with open(output_file, "w") as f:
+                for issue in issues:
+                    f.write(str(issue) + '\n')
+            error_msg = f"Validation found issues. See {output_file} for details."
+            print(error_msg)
+            return False, error_msg
 
     except Exception as e:
         return False, f"An unexpected error occurred: {str(e)}"
 
-def validate_and_print(input_cif_file, download_dict,  output_val_file):
+def validate_and_print(input_cif_file, download_dict, output_val_file):
     """
     A callable function for validation with direct input of arguments.
 
@@ -90,7 +96,9 @@ def validate_and_print(input_cif_file, download_dict,  output_val_file):
         cif_dict (str): Path to the mmCIF dictionary file.
         output_val_file (str): Path to save the validation output.
     """
-    mmcif_validation(input_cif_file, download_dict, output_val_file)
+    success, message = mmcif_validation(input_cif_file, download_dict, output_val_file)
+    if not success:
+        print(message)
 
 def main():
     """
@@ -102,5 +110,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
